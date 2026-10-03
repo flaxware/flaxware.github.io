@@ -25,7 +25,11 @@ html {
 
 body {
   background:
-    radial-gradient(circle at 80% 10%, rgba(124, 53, 255, 0.12), transparent 30rem),
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(124, 53, 255, 0.12),
+      transparent 30rem
+    ),
     var(--background);
   color: var(--text);
   font-family: "Space Grotesk", sans-serif;
@@ -61,10 +65,30 @@ a {
   min-height: 82px;
 }
 
+/* Logo */
+
 .logo {
+  align-items: center;
+  display: inline-flex;
   font-size: 1.35rem;
   font-weight: 700;
+  gap: 9px;
   letter-spacing: -0.06em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/*
+  The SVG is the same height as the "flaxware" text.
+  width: auto preserves the original proportions of logo.svg.
+*/
+.logo img {
+  display: block;
+  flex: 0 0 auto;
+  height: 1em;
+  max-width: 180px;
+  object-fit: contain;
+  width: auto;
 }
 
 .logo span,
@@ -72,6 +96,8 @@ h1 span,
 h2 span {
   color: var(--purple-light);
 }
+
+/* Navigation links */
 
 .nav-links {
   align-items: center;
@@ -95,7 +121,9 @@ h2 span {
   color: var(--purple-light);
   font-size: 0.85rem;
   padding: 9px 17px;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .nav-button:hover {
@@ -153,7 +181,9 @@ h1 {
   font-size: 0.9rem;
   font-weight: 600;
   padding: 14px 22px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .button:hover {
@@ -274,7 +304,9 @@ h2 {
   flex-direction: column;
   min-height: 340px;
   padding: 28px;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .project-card:hover {
@@ -374,6 +406,16 @@ h2 {
     min-height: 72px;
   }
 
+  .logo {
+    font-size: 1.2rem;
+    gap: 7px;
+  }
+
+  .logo img {
+    height: 1em;
+    max-width: 150px;
+  }
+
   .nav-links {
     gap: 14px;
   }
@@ -421,5 +463,25 @@ h2 {
     align-items: start;
     flex-direction: column;
     gap: 15px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .logo {
+    font-size: 1.05rem;
+  }
+
+  .logo img {
+    max-width: 125px;
+  }
+
+  .nav-button {
+    font-size: 0.78rem;
+    padding: 8px 12px;
   }
 }
