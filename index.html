@@ -1,241 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="assets/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="assets/logo.png" sizes="32x32">
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlaxGo Search</title>
+  <meta name="description" content="FlaxGo: calm, focused, private search.">
+  <style>
+    :root {
+      --bg: #101214;
+      --panel: #181b1f;
+      --panel-2: #1f2328;
+      --text: #eceff1;
+      --muted: #a7b0b8;
+      --accent: #8fd694;
+      --accent-ink: #0d1a0f;
+      --border: #2c3138;
+      --focus: #ffd166;
+      --radius: 14px;
+    }
 
-  <meta
-    name="description"
-    content="Flaxware — Turn your computer into a supercomputer."
-  >
+    * { box-sizing: border-box; }
 
-  <title>Flaxware | Security design first.</title>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Atkinson Hyperlegible", "Verdana", system-ui, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+    }
 
-  <link rel="stylesheet" href="style.css">
+    /* Clear, consistent focus ring for keyboard users */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+
+    /* Search at the top right */
+    .search {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      width: min(420px, 100%);
+      margin-left: auto;
+    }
+
+    .search input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 14px;
+      font: inherit;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-right: none;
+      border-radius: var(--radius) 0 0 var(--radius);
+    }
+
+    .search input::placeholder { color: var(--muted); }
+
+    .search input:focus {
+      border-color: var(--accent);
+    }
+
+    .engine-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 14px;
+      font: inherit;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .engine-toggle:hover { background: #262b31; }
+
+    /* Small triangle */
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--text);
+      transition: transform 0.15s ease;
+    }
+
+    .engine-toggle[aria-expanded="true"] .triangle {
+      transform: rotate(180deg);
+    }
+
+    .engine-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 100%;
+      min-width: 300px;
+      margin: 0;
+      padding: 6px;
+      list-style: none;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .engine-menu[hidden] { display: none; }
+
+    .engine-menu li button {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      padding: 10px 12px;
+      font: inherit;
+      text-align: left;
+      color: var(--text);
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .engine-menu li button:hover,
+    .engine-menu li button:focus-visible {
+      background: var(--panel-2);
+    }
+
+    .engine-menu li button[aria-selected="true"] .engine-name::after {
+      content: " ✓";
+      color: var(--accent);
+    }
+
+    .engine-name { font-weight: 600; }
+
+    .engine-url {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 56px 24px 72px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.2;
+      margin: 0 0 16px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 60ch;
+      margin: 0 0 12px;
+    }
+
+    .hint {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      border: 1px dashed var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    kbd {
+      font-family: inherit;
+      padding: 1px 6px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin: 48px 0 16px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 22px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .steps {
+      padding-left: 1.2em;
+      color: var(--muted);
+    }
+
+    .steps li { margin-bottom: 8px; }
+
+    footer {
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    /* Respect users who prefer less motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+
+    @media (max-width: 640px) {
+      header { justify-content: center; }
+      .search { margin-left: 0; width: 100%; }
+      .engine-menu { min-width: 0; }
+      main { padding-top: 36px; }
+    }
+  </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <nav class="navbar container">
+  <header>
+    <a class="logo" href="https://flaxware.github.io/flaxgo" aria-label="FlaxGo home">FlaxGo</a>
 
-      <a class="logo" href="#home" aria-label="Flaxware home">
-        <img src="assets/logo.svg" alt="💎">
-        <span>flaxware<span>.</span></span>
-      </a>
+    <form class="search" id="searchForm" role="search">
+      <label for="q" class="sr-only" style="position:absolute;left:-9999px;">Search</label>
+      <input id="q" name="q" type="search" autocomplete="off" placeholder="Search…" aria-describedby="hint">
+      <button type="button" class="engine-toggle" id="engineToggle"
+              aria-haspopup="listbox" aria-expanded="false" aria-controls="engineMenu"
+              aria-label="Choose search engine">
+        <span id="engineLabel">FlaxGo</span>
+        <span class="triangle" aria-hidden="true"></span>
+      </button>
 
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-
-        <a
-          class="nav-button"
-          href="https://flaxware.github.io/flaxgo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          FlaxGo
-        </a>
-      </div>
-    </nav>
+      <ul class="engine-menu" id="engineMenu" role="listbox" aria-label="Search engines" hidden></ul>
+    </form>
   </header>
 
   <main>
-
-    <section id="home" class="hero">
-      <div class="hero-glow glow-one"></div>
-      <div class="hero-glow glow-two"></div>
-
-      <div class="container hero-content">
-        <p class="eyebrow">CREATIVE AND LOGICAL SOFTWARE</p>
-
-        <h1>
-          Think <span>flaxible</span>,<br>
-          <span>do secure.</span>
-        </h1>
-
-        <p class="hero-text">
-          Flaxware creates thoughtful and secure software, experimental projects,
-          and useful digital experiences.
-        </p>
-
-        <div class="hero-actions">
-          <a class="button button-primary" href="#projects">
-            Explore projects
-          </a>
-
-          <a class="button button-secondary" href="#contact">
-            Get in touch
-          </a>
-        </div>
-      </div>
-
-      <a
-        class="scroll-hint"
-        href="#about"
-        aria-label="Scroll to About section"
-      >
-        <span></span>
-      </a>
+    <section class="hero">
+      <h1>Search calmly. Find what you need.</h1>
+      <p>FlaxGo keeps the page simple: one search box, no clutter, no pop-ups, and no autoplay. Pick your engine in the top right and go.</p>
+      <span class="hint" id="hint">Press <kbd>/</kbd> to jump to search from anywhere</span>
     </section>
 
-    <section id="about" class="section">
-      <div class="container about-grid">
-
-        <div>
-          <p class="eyebrow">ABOUT FLAXWARE</p>
-
-          <h2>
-            Ideas become <span>ideals.</span>
-          </h2>
-        </div>
-
-        <div class="about-copy">
-          <p>
-            Flaxware is a technology organization focused on turning ambitious
-            ideas into secure, simple, elegant, and useful products.
-          </p>
-
-          <p>
-            From open-source tools to creative experiments, every project is
-            designed with curiosity, clarity, and attention to detail.
-          </p>
-        </div>
-
+    <h2>Why it's easy to focus here</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>One thing at a time</h3>
+        <p>The search box is the first thing you see. Nothing moves, blinks, or competes for your attention.</p>
       </div>
-    </section>
-
-    <section id="projects" class="section projects-section">
-      <div class="container">
-
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">SELECTED WORK</p>
-
-            <h2>
-              Things we're <span>building.</span>
-            </h2>
-          </div>
-
-          <p class="section-description">
-            A selection of projects, experiments, and ideas from Flaxware.
-          </p>
-        </div>
-
-        <div class="project-grid">
-
-          <article class="project-card featured">
-            <div class="project-icon">✦</div>
-
-            <p class="project-number">01 / FLAX SYSTEM</p>
-
-            <h3>Flax OS</h3>
-
-            <p>
-              Unix-like operating system based on Linux kernel.
-            </p>
-
-            <a
-              href="https://flaxware.github.io/flax.system"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View project <span>↗</span>
-            </a>
-          </article>
-
-          <article class="project-card">
-            <div class="project-icon">⌘</div>
-
-            <p class="project-number">02 / FLAXPLAZA</p>
-
-            <h3>Open intelligence</h3>
-
-            <p>
-              Useful tools and websites built to help users create better
-              things.
-            </p>
-
-            <a
-              href="https://github.com/flaxware/flaxplaza/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View projects <span>↗</span>
-            </a>
-          </article>
-
-          <article class="project-card">
-            <div class="project-icon">◌</div>
-
-            <p class="project-number">03 / EXPERIMENTS</p>
-
-            <h3>Creative experiments</h3>
-
-            <p>
-              Small ideas, prototypes, and experiments exploring what technology
-              can become.
-            </p>
-
-            <a href="#contact">
-              Learn more <span>↗</span>
-            </a>
-          </article>
-
-        </div>
+      <div class="card">
+        <h3>Your engine, remembered</h3>
+        <p>Choose an engine once and FlaxGo remembers it for your next visit.</p>
       </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-      <div class="container contact-content">
-
-        <p class="eyebrow">START A CONVERSATION</p>
-
-        <h2>
-          Have an idea?<br>
-          <span>Let's make it real.</span>
-        </h2>
-
-        <p>
-          Whether you want to collaborate, report bugs or vulnerabilities, we'd love to hear from you.
-        </p>
-
-        <a
-          class="button button-primary"
-          href="mailto:superflax.step808@passfwd.com"
-        >
-          superflax.step808@passfwd.com
-        </a>
-
+      <div class="card">
+        <h3>Clear, readable text</h3>
+        <p>Large type, generous spacing, and high-contrast colours make reading less tiring.</p>
       </div>
-    </section>
+    </div>
 
+    <h2>Quick start</h2>
+    <ol class="steps">
+      <li>Click the search box, or press <kbd>/</kbd>.</li>
+      <li>Type your question and press <kbd>Enter</kbd>.</li>
+      <li>To change engines, click the small triangle and pick one from the list.</li>
+      <li>Press <kbd>Esc</kbd> to close the list without changing anything.</li>
+    </ol>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-content">
-
-      <a class="logo" href="#home" aria-label="Flaxware home">
-        <img src="assets/logo.svg" alt="Flaxware logo">
-        <span>flaxware<span>.</span></span>
-      </a>
-
-      <p>© 2026 Flaxware. Built with curiosity.</p>
-
-      <a
-        href="https://github.com/flaxware/flaxplaza"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        GitHub ↗
-      </a>
-
-    </div>
+  <footer>
+    FlaxGo · Simple search for focused minds
   </footer>
 
+  <script>
+    // Edit this list to change engines. The first two are the FlaxGo options.
+    const ENGINES = [
+      { name: "FlaxGo",       display: "flaxware.github.io/flaxgo",       url: "https://flaxware.github.io/flaxgo?q=" },
+      { name: "FlaxGo Onion", display: "flaxware.github.io/flaxgo.onion", url: "https://flaxware.github.io/flaxgo.onion?q=" },
+      { name: "DuckDuckGo",   display: "duckduckgo.com",                  url: "https://duckduckgo.com/?q=" },
+      { name: "Brave Search", display: "search.brave.com",                url: "https://search.brave.com/search?q=" },
+      { name: "Startpage",    display: "startpage.com",                   url: "https://www.startpage.com/sp/search?query=" }
+    ];
+
+    const STORAGE_KEY = "flaxgo-engine";
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("q");
+    const toggle = document.getElementById("engineToggle");
+    const label = document.getElementById("engineLabel");
+    const menu = document.getElementById("engineMenu");
+
+    let current = Math.max(0, ENGINES.findIndex(e => e.name === localStorage.getItem(STORAGE_KEY)));
+    if (current < 0) current = 0;
+
+    function renderMenu() {
+      menu.innerHTML = "";
+      ENGINES.forEach((engine, i) => {
+        const li = document.createElement("li");
+        li.setAttribute("role", "none");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.setAttribute("role", "option");
+        btn.setAttribute("aria-selected", String(i === current));
+        btn.dataset.index = i;
+        btn.innerHTML = `<span class="engine-name">${engine.name}</span><span class="engine-url">${engine.display}</span>`;
+        btn.addEventListener("click", () => selectEngine(i));
+        li.appendChild(btn);
+        menu.appendChild(li);
+      });
+    }
+
+    function selectEngine(i) {
+      current = i;
+      label.textContent = ENGINES[i].name;
+      localStorage.setItem(STORAGE_KEY, ENGINES[i].name);
+      closeMenu();
+      renderMenu();
+      input.focus();
+    }
+
+    function openMenu() {
+      menu.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+      const selected = menu.querySelector('[aria-selected="true"]');
+      (selected || menu.querySelector("button")).focus();
+    }
+
+    function closeMenu(returnFocus = true) {
+      menu.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+      if (returnFocus) toggle.focus();
+    }
+
+    toggle.addEventListener("click", () => {
+      menu.hidden ? openMenu() : closeMenu(false);
+    });
+
+    // Keyboard support inside the menu
+    menu.addEventListener("keydown", (e) => {
+      const buttons = [...menu.querySelectorAll("button")];
+      const idx = buttons.indexOf(document.activeElement);
+      if (e.key === "ArrowDown") { e.preventDefault(); buttons[(idx + 1) % buttons.length].focus(); }
+      if (e.key === "ArrowUp")   { e.preventDefault(); buttons[(idx - 1 + buttons.length) % buttons.length].focus(); }
+      if (e.key === "Escape")    { closeMenu(); }
+      if (e.key === "Enter" || e.key === " ") {
+        if (idx >= 0) { e.preventDefault(); selectEngine(Number(buttons[idx].dataset.index)); }
+      }
+    });
+
+    // Close when clicking elsewhere
+    document.addEventListener("click", (e) => {
+      if (!form.contains(e.target) && !menu.hidden) closeMenu(false);
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = input.value.trim();
+      if (!query) { input.focus(); return; }
+      window.location.href = ENGINES[current].url + encodeURIComponent(query);
+    });
+
+    // "/" focuses search, unless the user is already typing
+    document.addEventListener("keydown", (e) => {
+      const tag = document.activeElement.tagName;
+      if (e.key === "/" && tag !== "INPUT" && tag !== "TEXTAREA") {
+        e.preventDefault();
+        input.focus();
+      }
+    });
+
+    label.textContent = ENGINES[current].name;
+    renderMenu();
+  </script>
 </body>
 </html>
