@@ -14,192 +14,25 @@
   <link rel="canonical" href="https://flaxware.github.io/">
   <title>Flaxware — Thoughtful software, built with intent</title>
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0c0815;
-      --surface: rgba(25, 16, 40, .82);
-      --text: #f7f2ff;
-      --muted: #c4b5d8;
-      --quiet: #a18db8;
-      --line: rgba(192, 137, 255, .3);
-      --green: #39ff14;
-      --green-deep: #00e640;
-      --green-ink: #061709;
-      --violet: #9d4dff;
-      --violet-light: #d3a6ff;
-      --radius: 18px;
-      --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
-      --content: 1160px;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 100px; -webkit-text-size-adjust: 100%; }
-    body { margin: 0; min-width: 320px; overflow-x: hidden; background: radial-gradient(ellipse at 82% 4%, rgba(157,77,255,.25), transparent 34rem), radial-gradient(ellipse at 3% 35%, rgba(0,230,64,.1), transparent 32rem), var(--bg); color: var(--text); font: 16px/1.65 "Space Grotesk", Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
-    img, iframe { max-width: 100%; }
-    a { color: inherit; }
-    button, input, select { font: inherit; }
-    button, a, select { -webkit-tap-highlight-color: transparent; }
-    :focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
-    ::selection { color: var(--green-ink); background: var(--green); }
-    .container { width: min(var(--content), calc(100% - 48px)); margin-inline: auto; }
-    .skip-link { position: fixed; z-index: 100; top: 10px; left: 10px; padding: 10px 14px; transform: translateY(-160%); color: var(--green-ink); background: var(--green); border-radius: 10px; }
-    .skip-link:focus { transform: translateY(0); }
-    .site-header { position: sticky; top: 0; z-index: 30; border-bottom: 1px solid var(--line); background: rgba(12,8,21,.9); backdrop-filter: blur(20px) saturate(150%); }
-    .navbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-    .brand { display: inline-flex; align-items: center; flex: 0 0 auto; text-decoration: none; }
-    .brand img { display: block; width: auto; height: 36px; max-width: 190px; object-fit: contain; }
-    .nav-tools { min-width: 0; display: flex; align-items: center; justify-content: flex-end; gap: 14px; }
-    .nav-links { display: flex; align-items: center; gap: 16px; }
-    .nav-links a, .footer-links a { color: var(--muted); font-size: .88rem; text-decoration: none; white-space: nowrap; }
-    .nav-links a:hover, .footer-links a:hover { color: var(--green); }
-    .nav-search { min-width: 0; display: flex; gap: 5px; padding: 5px; border: 1px solid rgba(57,255,20,.48); border-radius: 14px; background: rgba(157,77,255,.15); box-shadow: 0 0 24px rgba(157,77,255,.16); backdrop-filter: blur(14px); }
-    .nav-search input { width: clamp(110px, 14vw, 205px); min-width: 0; padding: 8px; border: 0; outline: 0; background: transparent; color: var(--text); }
-    .nav-search input::placeholder { color: var(--quiet); }
-    .nav-search select { width: 105px; min-width: 0; padding: 0 3px; border: 0; background: transparent; color: var(--violet-light); font-size: .78rem; }
-    .nav-search select option { background: #191028; }
-    .nav-search button, .login-button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 7px 12px; border: 0; border-radius: 9px; background: var(--green); color: var(--green-ink); font-weight: 800; text-decoration: none; white-space: nowrap; cursor: pointer; }
-    .nav-search button:hover, .login-button:hover, .button-primary:hover { background: #84ff6c; transform: translateY(-1px); }
-    .hero { position: relative; overflow: hidden; padding: clamp(70px, 10vw, 130px) 0 82px; }
-    .hero::after { content: ""; position: absolute; width: 460px; height: 460px; top: 7%; right: -14%; z-index: -1; border: 1px solid rgba(57,255,20,.25); border-radius: 50%; box-shadow: 0 0 0 42px rgba(57,255,20,.035), 0 0 0 92px rgba(157,77,255,.1), 0 0 110px rgba(157,77,255,.32); pointer-events: none; }
-    .hero-content { max-width: var(--content); }
-    .eyebrow, .section-kicker { color: var(--green); font: 600 .76rem/1.4 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
-    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; }
-    .live-dot { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: var(--green); box-shadow: 0 0 15px rgba(57,255,20,.95); }
-    h1 { max-width: 850px; margin: 0; font-size: clamp(3rem, 8vw, 6.7rem); line-height: .99; letter-spacing: -.075em; font-weight: 730; }
-    h1 .accent, .section-title span, .manifesto-box h2 span { color: var(--violet-light); text-shadow: 0 0 26px rgba(157,77,255,.45); }
-    .hero-copy { max-width: 610px; margin: 26px 0 30px; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.2rem); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 10px 18px; border: 1px solid transparent; border-radius: 999px; text-decoration: none; font-weight: 750; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
-    .button-primary { color: var(--green-ink); background: var(--green); }
-    .button-secondary { border-color: var(--line); background: rgba(255,255,255,.035); color: var(--text); backdrop-filter: blur(12px); }
-    .button-secondary:hover { border-color: var(--violet-light); background: rgba(157,77,255,.18); }
-    .signal-strip { border-block: 1px solid var(--line); background: rgba(255,255,255,.025); }
-    .signal-inner { display: grid; grid-template-columns: repeat(3, 1fr); }
-    .signal { display: flex; align-items: center; gap: 13px; min-height: 82px; padding: 14px 20px; border-right: 1px solid var(--line); }
-    .signal:first-child { padding-left: 0; } .signal:last-child { border-right: 0; }
-    .signal-icon { width: 38px; height: 38px; display: grid; place-items: center; flex: 0 0 auto; border: 1px solid rgba(57,255,20,.4); border-radius: 12px; color: var(--green); background: rgba(57,255,20,.08); }
-    .signal-icon svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-    .signal strong { display: block; font-size: .9rem; } .signal small { display: block; color: var(--quiet); font-size: .77rem; }
-    .section { padding: 88px 0; }
-    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 30px; }
-    .section-kicker { margin: 0 0 10px; font-size: .74rem; }
-    .section-title { margin: 0; font-size: clamp(2rem, 4vw, 3.3rem); line-height: 1.1; letter-spacing: -.055em; }
-    .section-intro { max-width: 500px; margin: 0; color: var(--muted); font-size: .97rem; }
-    .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .project-card { min-width: 0; min-height: 280px; display: flex; flex-direction: column; align-items: flex-start; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(150deg, rgba(42,27,62,.76), rgba(19,13,31,.82)); box-shadow: inset 0 1px rgba(255,255,255,.04), 0 16px 48px rgba(0,0,0,.16); transition: transform .2s ease, border-color .2s ease; }
-    .project-card:hover { transform: translateY(-3px); border-color: var(--violet-light); }
-    .project-card.featured { border-color: rgba(57,255,20,.55); }
-    .project-icon { width: 46px; height: 46px; display: grid; place-items: center; margin-bottom: 22px; border-radius: 14px; color: var(--green); background: rgba(57,255,20,.1); font-size: 1.25rem; }
-    .project-number { margin: 0 0 9px; color: var(--violet-light); font: .7rem var(--mono); letter-spacing: .1em; }
-    .project-card h3 { margin: 0 0 9px; font-size: 1.35rem; }
-    .project-card p:not(.project-number) { margin: 0; color: var(--muted); font-size: .91rem; }
-    .project-card a { display: inline-flex; gap: 8px; margin-top: auto; padding-top: 22px; color: var(--green); text-decoration: none; font-weight: 700; font-size: .88rem; }
-    .privacy-section { padding-top: 14px; }
-    .privacy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .tool-card { min-width: 0; padding: clamp(22px, 4vw, 34px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(145deg, rgba(35,22,54,.78), rgba(18,12,29,.83)); box-shadow: inset 0 1px rgba(255,255,255,.045), 0 18px 56px rgba(0,0,0,.18); }
-    .tool-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 20px; }
-    .tool-card h3 { margin: 0 0 7px; font-size: 1.3rem; }
-    .tool-card p { margin: 0; color: var(--muted); font-size: .9rem; }
-    .tool-tag { flex: 0 0 auto; padding: 4px 9px; border: 1px solid rgba(157,77,255,.65); border-radius: 99px; color: var(--violet-light); background: rgba(157,77,255,.16); font: .68rem var(--mono); }
-    .terminal-output { display: flex; align-items: center; gap: 12px; min-height: 66px; margin: 20px 0 14px; padding: 13px 15px; border: 1px solid rgba(157,77,255,.34); border-radius: 13px; background: rgba(9,7,16,.68); }
-    .result-light { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 50%; background: var(--green); box-shadow: 0 0 13px rgba(57,255,20,.7); }
-    .terminal-output strong { display: block; font: 600 .9rem var(--mono); } .terminal-output small { color: var(--muted); font-size: .78rem; }
-    .tool-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    .tool-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 9px 16px; border: 1px solid rgba(57,255,20,.55); border-radius: 11px; background: var(--green-deep); color: #041307; font-weight: 800; text-decoration: none; cursor: pointer; }
-    .tool-button:hover { background: var(--green); }
-    .lookup-form { display: flex; gap: 8px; margin: 18px 0 0; }
-    .lookup-form input { flex: 1; min-width: 0; min-height: 44px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 11px; background: rgba(9,7,16,.76); color: var(--text); }
-    .privacy-note { margin-top: 15px !important; color: var(--quiet) !important; font-size: .76rem !important; }
-    .local-list { display: grid; margin: 16px 0 18px; border-top: 1px solid var(--line); }
-    .local-row { display: flex; justify-content: space-between; gap: 20px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: .84rem; }
-    .local-row span:first-child { color: var(--muted); }
-    .local-row output { max-width: 60%; overflow-wrap: anywhere; color: var(--green); font-family: var(--mono); font-size: .77rem; text-align: right; }
-    .map-primary { border-color: rgba(157,77,255,.65); }
-    .planet-button { width: 100%; min-height: 124px; display: flex; align-items: center; justify-content: center; gap: 16px; margin: 18px 0 12px; padding: 16px; border: 1px solid rgba(157,77,255,.58); border-radius: 16px; background: radial-gradient(circle at center, rgba(157,77,255,.24), rgba(9,7,16,.7) 68%); color: var(--text); font: 600 .88rem var(--mono); cursor: pointer; }
-    .planet { font-size: 3rem; line-height: 1; filter: drop-shadow(0 0 15px rgba(157,77,255,.8)); }
-    .map-frame { display: block; width: 100%; height: 430px; margin-top: 16px; border: 1px solid var(--line); border-radius: 13px; background: #08060e; }
-    .map-frame[hidden] { display: none; }
-    .manifesto { padding: 0 0 88px; }
-    .manifesto-box { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; align-items: center; padding: clamp(25px, 6vw, 54px); border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(120deg, rgba(157,77,255,.2), rgba(0,230,64,.055)); }
-    .manifesto-box h2 { margin: 0; font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.12; }
-    .manifesto-copy p { margin: 0 0 18px; color: var(--muted); }
-    .site-footer { border-top: 1px solid var(--line); background: rgba(0,0,0,.2); }
-    .footer-inner { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 16px; color: var(--quiet); font-size: .82rem; }
-    .footer-inner p { margin: 0; } .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-    @media (max-width: 1050px) {
-      .navbar { flex-wrap: wrap; padding-block: 10px; }
-      .nav-links { display: none; }
-      .nav-tools { flex: 1; }
-      .nav-search { flex: 1; max-width: 520px; }
-      .nav-search input { flex: 1; width: auto; }
-    }
-    @media (max-width: 800px) {
-      .container { width: min(var(--content), calc(100% - 36px)); }
-      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .project-card:last-child { grid-column: 1 / -1; }
-      .privacy-grid, .manifesto-box { grid-template-columns: 1fr; }
-      .manifesto-box { gap: 22px; }
-      .signal { padding-inline: 12px; }
-    }
-    @media (max-width: 560px) {
-      html { scroll-padding-top: 138px; }
-      .container { width: calc(100% - 28px); }
-      .navbar { min-height: auto; align-items: stretch; flex-direction: column; gap: 9px; padding: 10px 0; }
-      .brand img { height: 30px; }
-      .nav-tools { width: 100%; flex: initial; gap: 8px; }
-      .nav-search { width: 100%; flex: 1; gap: 3px; padding: 4px; }
-      .nav-search input { width: 1%; flex: 1 1 45px; padding: 7px 5px; font-size: 16px; }
-      .nav-search select { width: 86px; flex: 0 1 86px; padding: 0; font-size: .72rem; }
-      .nav-search button { min-height: 42px; padding: 7px 9px; font-size: .82rem; }
-      .login-button { min-height: 46px; padding: 7px 11px; }
-      .hero { padding: 60px 0 58px; }
-      .hero::after { width: 300px; height: 300px; right: -190px; }
-      .eyebrow { align-items: flex-start; font-size: .66rem; letter-spacing: .08em; }
-      h1 { font-size: clamp(2.65rem, 13vw, 4.1rem); overflow-wrap: anywhere; }
-      .hero-copy { margin: 20px 0 24px; font-size: 1rem; }
-      .hero-actions { gap: 9px; }
-      .button { min-height: 46px; padding-inline: 14px; }
-      .signal-inner { grid-template-columns: 1fr; padding-block: 6px; }
-      .signal, .signal:first-child { min-height: 64px; padding: 10px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .signal:last-child { border-bottom: 0; }
-      .section { padding: 64px 0; }
-      .section-head { display: block; }
-      .section-intro { margin-top: 14px; font-size: .92rem; }
-      .project-grid { grid-template-columns: 1fr; gap: 12px; }
-      .project-card, .project-card:last-child { min-height: 230px; grid-column: auto; padding: 22px; }
-      .privacy-section { padding-top: 0; }
-      .privacy-grid { gap: 12px; }
-      .tool-card { padding: 20px 17px; border-radius: 16px; }
-      .tool-top { display: block; margin-bottom: 15px; }
-      .tool-card h3 { font-size: 1.18rem; }
-      .tool-tag { display: inline-block; margin-top: 9px; }
-      .tool-actions { align-items: stretch; }
-      .tool-actions .tool-button { flex: 1 1 auto; }
-      .lookup-form { flex-wrap: wrap; }
-      .lookup-form input { flex-basis: 100%; font-size: 16px; }
-      .lookup-form .tool-button { width: 100%; }
-      .local-row { gap: 10px; }
-      .map-frame { height: min(65vh, 420px); min-height: 280px; }
-      .planet-button { min-height: 106px; gap: 10px; padding: 12px 8px; font-size: .72rem; }
-      .planet { font-size: 2.4rem; }
-      .manifesto { padding-bottom: 64px; }
-      .manifesto-box { padding: 24px 19px; }
-      .footer-inner { min-height: 0; align-items: flex-start; flex-direction: column; gap: 12px; padding-block: 22px; }
-    }
-    @media (max-width: 360px) {
-      .nav-tools { gap: 5px; }
-      .nav-search select { width: 76px; flex-basis: 76px; font-size: .68rem; }
-      .nav-search button { padding-inline: 7px; font-size: .76rem; }
-      .login-button { padding-inline: 8px; font-size: .8rem; }
-      .tool-card { padding-inline: 14px; }
-    }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+    :root{color-scheme:dark;--bg:#0b0615;--surface:rgba(31,16,54,.78);--text:#fbf7ff;--muted:#d0c0e8;--quiet:#aa95c6;--line:rgba(187,121,255,.36);--green:#39ff14;--green-deep:#00e640;--green-ink:#061709;--violet:#a43dff;--violet-light:#ddb9ff;--radius:18px;--mono:ui-monospace,"SFMono-Regular",Consolas,monospace;--content:1160px}
+    *,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px;-webkit-text-size-adjust:100%}body{margin:0;min-width:320px;overflow-x:hidden;background:radial-gradient(ellipse at 82% 4%,rgba(164,61,255,.3),transparent 34rem),radial-gradient(ellipse at 3% 35%,rgba(0,230,64,.1),transparent 32rem),var(--bg);color:var(--text);font:16px/1.65 "Space Grotesk",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}img,iframe{max-width:100%}a{color:inherit}button,input,select{font:inherit}button,a,select{-webkit-tap-highlight-color:transparent}:focus-visible{outline:3px solid var(--green);outline-offset:4px}::selection{color:var(--green-ink);background:var(--green)}.container{width:min(var(--content),calc(100% - 48px));margin-inline:auto}.skip-link{position:fixed;z-index:100;top:10px;left:10px;padding:10px 14px;transform:translateY(-160%);color:var(--green-ink);background:var(--green);border-radius:10px}.skip-link:focus{transform:translateY(0)}
+    .site-header{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(12,6,23,.88);backdrop-filter:blur(22px) saturate(160%);box-shadow:0 8px 36px rgba(0,0,0,.25)}.navbar{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:inline-flex;align-items:center;gap:9px;flex:0 0 auto;text-decoration:none;font-weight:800;letter-spacing:-.06em;font-size:1.28rem}.brand img{width:30px;height:30px;object-fit:contain}.brand-name{color:var(--text);text-shadow:0 0 18px rgba(164,61,255,.55)}.brand-name span{color:var(--violet-light)}.nav-tools{min-width:0;display:flex;align-items:center;justify-content:flex-end;gap:12px}.nav-links{display:flex;align-items:center;gap:16px}.nav-links a,.footer-links a{color:var(--muted);font-size:.88rem;text-decoration:none;white-space:nowrap}.nav-links a:hover,.footer-links a:hover{color:var(--green)}.nav-search{min-width:0;display:flex;gap:5px;padding:5px;border:1px solid rgba(57,255,20,.48);border-radius:14px;background:rgba(164,61,255,.2);box-shadow:0 0 26px rgba(164,61,255,.28),inset 0 0 18px rgba(221,185,255,.06);backdrop-filter:blur(15px)}.nav-search input{width:clamp(110px,14vw,205px);min-width:0;padding:8px;border:0;outline:0;background:transparent;color:var(--text)}.nav-search input::placeholder{color:var(--quiet)}.nav-search select{width:105px;min-width:0;padding:0 3px;border:0;background:transparent;color:var(--violet-light);font-size:.78rem}.nav-search select option{background:#191028}.nav-search button,.login-button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:7px 12px;border:1px solid rgba(57,255,20,.7);border-radius:10px;background:var(--green);color:var(--green-ink);font-weight:800;text-decoration:none;white-space:nowrap;cursor:pointer;box-shadow:0 0 18px rgba(57,255,20,.28),0 0 32px rgba(164,61,255,.2);transition:transform .18s,box-shadow .18s,filter .18s}.nav-search button:hover,.login-button:hover,.button-primary:hover,.tool-button:hover{transform:translateY(-2px);filter:brightness(1.12);box-shadow:0 0 24px rgba(57,255,20,.4),0 0 42px rgba(164,61,255,.36)}
+    .hero{position:relative;overflow:hidden;padding:clamp(70px,10vw,130px) 0 82px}.hero::after{content:"";position:absolute;width:460px;height:460px;top:7%;right:-14%;z-index:-1;border:1px solid rgba(57,255,20,.25);border-radius:50%;box-shadow:0 0 0 42px rgba(57,255,20,.035),0 0 0 92px rgba(164,61,255,.13),0 0 110px rgba(164,61,255,.4);pointer-events:none}.hero-content{max-width:var(--content)}.eyebrow,.section-kicker{color:var(--green);font:600 .76rem/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}.eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 22px}.live-dot{width:8px;height:8px;flex:0 0 auto;border-radius:50%;background:var(--green);box-shadow:0 0 15px rgba(57,255,20,.95)}h1{max-width:850px;margin:0;font-size:clamp(3rem,8vw,6.7rem);line-height:.99;letter-spacing:-.075em;font-weight:730}h1 .accent,.section-title span,.manifesto-box h2 span{color:var(--violet-light);text-shadow:0 0 30px rgba(164,61,255,.65)}.hero-copy{max-width:610px;margin:26px 0 30px;color:var(--muted);font-size:clamp(1.05rem,2vw,1.2rem)}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:10px 18px;border:1px solid transparent;border-radius:999px;text-decoration:none;font-weight:750;transition:transform .18s,background .18s,border-color .18s,box-shadow .18s}.button-primary{color:var(--green-ink);background:var(--green);box-shadow:0 0 20px rgba(57,255,20,.24),0 0 34px rgba(164,61,255,.22)}.button-secondary{border-color:var(--line);background:rgba(164,61,255,.12);color:var(--text);backdrop-filter:blur(14px);box-shadow:0 0 22px rgba(164,61,255,.18)}.button-secondary:hover{border-color:var(--violet-light);background:rgba(164,61,255,.28);box-shadow:0 0 26px rgba(164,61,255,.45)}
+    .signal-strip{border-block:1px solid var(--line);background:rgba(255,255,255,.025);backdrop-filter:blur(12px)}.signal-inner{display:grid;grid-template-columns:repeat(3,1fr)}.signal{display:flex;align-items:center;gap:13px;min-height:82px;padding:14px 20px;border-right:1px solid var(--line)}.signal:first-child{padding-left:0}.signal:last-child{border-right:0}.signal-icon{width:38px;height:38px;display:grid;place-items:center;flex:0 0 auto;border:1px solid rgba(57,255,20,.4);border-radius:12px;color:var(--green);background:rgba(57,255,20,.08);box-shadow:0 0 20px rgba(57,255,20,.12)}.signal-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.signal strong{display:block;font-size:.9rem}.signal small{display:block;color:var(--quiet);font-size:.77rem}
+    .section{padding:88px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:30px}.section-kicker{margin:0 0 10px;font-size:.74rem}.section-title{margin:0;font-size:clamp(2rem,4vw,3.3rem);line-height:1.1;letter-spacing:-.055em}.section-intro{max-width:500px;margin:0;color:var(--muted);font-size:.97rem}.project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.project-card{min-width:0;min-height:280px;display:flex;flex-direction:column;align-items:flex-start;padding:25px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,rgba(72,34,112,.46),rgba(22,12,39,.78));backdrop-filter:blur(18px);box-shadow:inset 0 1px rgba(255,255,255,.08),0 0 32px rgba(164,61,255,.15),0 16px 48px rgba(0,0,0,.18);transition:transform .2s,border-color .2s,box-shadow .2s}.project-card:hover{transform:translateY(-3px);border-color:var(--violet-light);box-shadow:0 0 34px rgba(164,61,255,.34)}.project-card.featured{border-color:rgba(57,255,20,.55)}.project-icon{width:46px;height:46px;display:grid;place-items:center;margin-bottom:22px;border-radius:14px;color:var(--green);background:rgba(57,255,20,.1);font-size:1.25rem}.project-number{margin:0 0 9px;color:var(--violet-light);font:.7rem var(--mono);letter-spacing:.1em}.project-card h3{margin:0 0 9px;font-size:1.35rem}.project-card p:not(.project-number){margin:0;color:var(--muted);font-size:.91rem}.project-card a{display:inline-flex;gap:8px;margin-top:auto;padding-top:22px;color:var(--green);text-decoration:none;font-weight:700;font-size:.88rem}.system-actions{width:100%;display:flex;flex-direction:column;align-items:stretch;gap:9px;margin-top:auto;padding-top:20px}.system-actions .tool-button{width:100%}
+    .privacy-section{padding-top:14px}.privacy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.tool-card{min-width:0;padding:clamp(22px,4vw,34px);border:1px solid rgba(187,121,255,.4);border-radius:20px;background:linear-gradient(145deg,rgba(69,32,108,.5),rgba(19,10,35,.78));backdrop-filter:blur(20px) saturate(150%);box-shadow:inset 0 1px rgba(255,255,255,.075),0 18px 56px rgba(0,0,0,.22),0 0 34px rgba(164,61,255,.15)}.tool-top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:20px}.tool-card h3{margin:0 0 7px;font-size:1.3rem}.tool-card p{margin:0;color:var(--muted);font-size:.9rem}.tool-tag{flex:0 0 auto;padding:4px 9px;border:1px solid rgba(164,61,255,.75);border-radius:99px;color:var(--violet-light);background:rgba(164,61,255,.22);font:.68rem var(--mono)}.terminal-output{display:flex;align-items:center;gap:12px;min-height:66px;margin:20px 0 14px;padding:13px 15px;border:1px solid rgba(164,61,255,.48);border-radius:13px;background:rgba(9,5,18,.74);box-shadow:inset 0 0 22px rgba(164,61,255,.12)}.result-light{width:10px;height:10px;flex:0 0 auto;border-radius:50%;background:var(--green);box-shadow:0 0 13px rgba(57,255,20,.7)}.terminal-output strong{display:block;font:600 .9rem var(--mono)}.terminal-output small{color:var(--muted);font-size:.78rem}.tool-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.tool-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 16px;border:1px solid rgba(57,255,20,.62);border-radius:11px;background:rgba(0,230,64,.92);color:#041307;font-weight:800;text-decoration:none;cursor:pointer;box-shadow:0 0 18px rgba(57,255,20,.2),0 0 26px rgba(164,61,255,.16);transition:transform .18s,box-shadow .18s,filter .18s}.lookup-form{display:flex;gap:8px;margin:18px 0 0}.lookup-form input{flex:1;min-width:0;min-height:44px;padding:9px 12px;border:1px solid var(--line);border-radius:11px;background:rgba(9,7,16,.76);color:var(--text)}.privacy-note{margin-top:15px!important;color:var(--quiet)!important;font-size:.76rem!important}.local-list{display:grid;margin:16px 0 18px;border-top:1px solid var(--line)}.local-row{display:flex;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.84rem}.local-row span:first-child{color:var(--muted)}.local-row output{max-width:60%;overflow-wrap:anywhere;color:var(--green);font-family:var(--mono);font-size:.77rem;text-align:right}.map-primary{border-color:rgba(164,61,255,.9);box-shadow:inset 0 0 36px rgba(164,61,255,.12),0 0 42px rgba(164,61,255,.25)}.eye-button{width:100%;min-height:124px;display:flex;align-items:center;justify-content:center;gap:16px;margin:18px 0 12px;padding:16px;border:1px solid rgba(194,126,255,.82);border-radius:16px;background:radial-gradient(circle at center,rgba(164,61,255,.32),rgba(9,7,16,.78) 70%);color:var(--text);font:600 .88rem var(--mono);cursor:pointer;box-shadow:inset 0 0 26px rgba(164,61,255,.14),0 0 24px rgba(164,61,255,.2);transition:box-shadow .2s,transform .2s}.eye-button:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(164,61,255,.48)}.eye-icon{width:48px;height:48px;flex:0 0 auto;color:var(--violet-light);filter:drop-shadow(0 0 12px rgba(164,61,255,.9))}.map-frame{display:block;width:100%;height:430px;margin-top:16px;border:1px solid var(--line);border-radius:13px;background:#08060e}.map-frame[hidden]{display:none}
+    .manifesto{padding:0 0 88px}.manifesto-box{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center;padding:clamp(25px,6vw,54px);border:1px solid var(--line);border-radius:22px;background:linear-gradient(120deg,rgba(164,61,255,.3),rgba(0,230,64,.055));backdrop-filter:blur(20px);box-shadow:0 0 42px rgba(164,61,255,.16)}.manifesto-box h2{margin:0;font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.12}.manifesto-copy p{margin:0 0 18px;color:var(--muted)}.site-footer{border-top:1px solid var(--line);background:rgba(0,0,0,.22)}.footer-inner{min-height:92px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:16px;color:var(--quiet);font-size:.82rem}.footer-inner p{margin:0}.footer-links{display:flex;flex-wrap:wrap;gap:20px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:1050px){.navbar{flex-wrap:wrap;padding-block:10px}.nav-links{display:none}.nav-tools{flex:1}.nav-search{flex:1;max-width:520px}.nav-search input{flex:1;width:auto}}
+    @media(max-width:800px){.container{width:min(var(--content),calc(100% - 36px))}.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.project-card:last-child{grid-column:1/-1}.privacy-grid,.manifesto-box{grid-template-columns:1fr}.manifesto-box{gap:22px}.signal{padding-inline:12px}}
+    @media(max-width:560px){html{scroll-padding-top:138px}.container{width:calc(100% - 28px)}.navbar{min-height:auto;align-items:stretch;flex-direction:column;gap:9px;padding:10px 0}.brand{font-size:1.2rem}.brand img{height:28px;width:28px}.nav-tools{width:100%;flex:initial;gap:7px}.nav-search{width:100%;flex:1;gap:3px;padding:4px}.nav-search input{width:1%;flex:1 1 45px;padding:7px 5px;font-size:16px}.nav-search select{width:82px;flex:0 1 82px;padding:0;font-size:.7rem}.nav-search button{min-height:42px;padding:7px 8px;font-size:.8rem}.login-button{min-height:46px;padding:7px 10px}.hero{padding:60px 0 58px}.hero::after{width:300px;height:300px;right:-190px}.eyebrow{align-items:flex-start;font-size:.66rem;letter-spacing:.08em}h1{font-size:clamp(2.65rem,13vw,4.1rem);overflow-wrap:anywhere}.hero-copy{margin:20px 0 24px;font-size:1rem}.hero-actions{gap:9px}.button{min-height:46px;padding-inline:14px}.signal-inner{grid-template-columns:1fr;padding-block:6px}.signal,.signal:first-child{min-height:64px;padding:10px 0;border-right:0;border-bottom:1px solid var(--line)}.signal:last-child{border-bottom:0}.section{padding:64px 0}.section-head{display:block}.section-intro{margin-top:14px;font-size:.92rem}.project-grid{grid-template-columns:1fr;gap:12px}.project-card,.project-card:last-child{min-height:230px;grid-column:auto;padding:22px}.privacy-section{padding-top:0}.privacy-grid{gap:12px}.tool-card{padding:20px 17px;border-radius:16px}.tool-top{display:block;margin-bottom:15px}.tool-card h3{font-size:1.18rem}.tool-tag{display:inline-block;margin-top:9px}.tool-actions{align-items:stretch}.tool-actions .tool-button{flex:1 1 auto}.lookup-form{flex-wrap:wrap}.lookup-form input{flex-basis:100%;font-size:16px}.lookup-form .tool-button{width:100%}.local-row{gap:10px}.map-frame{height:min(65vh,420px);min-height:280px}.eye-button{min-height:108px;gap:10px;padding:12px 8px;font-size:.72rem}.eye-icon{width:40px;height:40px}.manifesto{padding-bottom:64px}.manifesto-box{padding:24px 19px}.footer-inner{min-height:0;align-items:flex-start;flex-direction:column;gap:12px;padding-block:22px}}
+    @media(max-width:360px){.nav-tools{gap:5px}.nav-search select{width:72px;flex-basis:72px;font-size:.67rem}.nav-search button{padding-inline:6px;font-size:.75rem}.login-button{padding-inline:7px;font-size:.78rem}.tool-card{padding-inline:14px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><nav class="navbar container" aria-label="Main navigation">
-    <a class="brand" href="#home" aria-label="Flaxware home"><img src="assets/logo.svg" alt="Flaxware"></a>
+    <a class="brand" href="#home" aria-label="Flaxware home"><img src="assets/logo.svg" alt=""><span class="brand-name">flaxware<span>.</span></span></a>
     <div class="nav-tools"><div class="nav-links"><a href="#projects">Projects</a><a href="#privacy">Privacy tools</a><a href="#about">About</a></div>
       <form class="nav-search" id="searchForm" role="search"><label class="sr-only" for="query">Search the web</label><input id="query" name="q" type="search" placeholder="Search the web…" autocomplete="off" required><label class="sr-only" for="engine">Choose search engine</label><select id="engine" aria-label="Choose search engine"><option value="flaxgo">FlaxGo</option><option value="flaxgo-onion" disabled>FlaxGo .onion (address needed)</option><option value="duckduckgo">DuckDuckGo</option><option value="brave">Brave</option><option value="startpage">Startpage</option><option value="youtube">YouTube</option><option value="wikipedia">Wikipedia</option><option value="reddit">Reddit</option></select><button type="submit">Search</button></form>
       <a class="login-button" href="https://proton.me/login" target="_blank" rel="noopener noreferrer">Login ↗</a>
@@ -208,7 +41,11 @@
   <main id="main">
     <section class="hero" id="home"><div class="container hero-content"><p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Independent software studio · built with intent</p><h1>Think <span class="accent">flaxible.</span><br>Build with purpose.</h1><p class="hero-copy">Flaxware makes thoughtful software and useful digital experiences—with curiosity, clarity, and care for the people who use them.</p><div class="hero-actions"><a class="button button-primary" href="#projects">Explore projects <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="mailto:superflax.step808@passfwd.com">Get in touch <span aria-hidden="true">↗</span></a></div></div></section>
     <section class="signal-strip" aria-label="Flaxware principles"><div class="signal-inner container"><div class="signal"><span class="signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.5-3 7.7-7 10-4-2.3-7-5.5-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span><span><strong>Security-minded</strong><small>Careful by design, not by slogan</small></span></div><div class="signal"><span class="signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><span><strong>Open and curious</strong><small>Experiments that invite exploration</small></span></div><div class="signal"><span class="signal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h10M4 19h16"/><circle cx="18" cy="12" r="2"/></svg></span><span><strong>Made to be useful</strong><small>Less noise, more signal</small></span></div></div></section>
-    <section class="section" id="projects"><div class="container"><div class="section-head"><div><p class="section-kicker">Selected work</p><h2 class="section-title">Ideas in <span>motion.</span></h2></div><p class="section-intro">A growing collection of tools, operating-system work, and creative experiments from Flaxware.</p></div><div class="project-grid"><article class="project-card featured"><div class="project-icon" aria-hidden="true">⌕</div><p class="project-number">01 / SEARCH</p><h3>FlaxGo</h3><p>A calm, customizable search experience with a choice of engines and no unnecessary clutter.</p><a href="https://flaxware.github.io/flaxgo">Explore FlaxGo ↗</a></article><article class="project-card"><div class="project-icon" aria-hidden="true">✦</div><p class="project-number">02 / SYSTEM</p><h3>Flax OS</h3><p>A Unix-like operating-system project built on the Linux kernel.</p><a href="https://flaxware.github.io/flax.system" target="_blank" rel="noopener noreferrer">View project ↗</a></article><article class="project-card"><div class="project-icon" aria-hidden="true">⌘</div><p class="project-number">03 / TOOLBOX</p><h3>FlaxPlaza</h3><p>Open tools and small web projects made to help people create better things.</p><a href="https://github.com/flaxware/flaxplaza" target="_blank" rel="noopener noreferrer">Browse on GitHub ↗</a></article></div></div></section>
+    <section class="section" id="projects"><div class="container"><div class="section-head"><div><p class="section-kicker">Selected work</p><h2 class="section-title">Ideas in <span>motion.</span></h2></div><p class="section-intro">A growing collection of tools, operating-system work, and creative experiments from Flaxware.</p></div><div class="project-grid">
+      <article class="project-card featured"><div class="project-icon" aria-hidden="true">⌕</div><p class="project-number">01 / SEARCH</p><h3>FlaxGo</h3><p>A calm, customizable search experience with a choice of engines and no unnecessary clutter.</p><a href="https://flaxware.github.io/flaxgo">Explore FlaxGo ↗</a></article>
+      <article class="project-card"><div class="project-icon" aria-hidden="true">✦</div><p class="project-number">02 / SYSTEM</p><h3>FLAX SYSTEM</h3><p>A complete Unix-like operating system project built on the Linux kernel. Read the manual or view download instructions.</p><div class="system-actions"><a class="tool-button" href="https://github.com/flaxware/flax.system/blob/main/README.md" target="_blank" rel="noopener noreferrer">Manual ↗</a><a class="tool-button" href="https://github.com/flaxware/flax.system/blob/main/DOWNLOAD.md" target="_blank" rel="noopener noreferrer">Full Download ↗</a></div></article>
+      <article class="project-card"><div class="project-icon" aria-hidden="true">⌘</div><p class="project-number">03 / TOOLBOX</p><h3>FlaxPlaza</h3><p>Open tools and small web projects made to help people create better things.</p><a href="https://github.com/flaxware/flaxplaza" target="_blank" rel="noopener noreferrer">Browse on GitHub ↗</a></article>
+    </div></div></section>
     <section class="section privacy-section" id="privacy"><div class="container"><div class="section-head"><div><p class="section-kicker">Privacy &amp; security desk</p><h2 class="section-title">Your connection, <span>your call.</span></h2></div><p class="section-intro">Optional checks and external references. Nothing runs in the background. External providers receive the connection or query data needed for their services.</p></div>
       <div class="privacy-grid">
         <article class="tool-card"><div class="tool-top"><div><h3>Tor connection check</h3><p>Open the Tor Project's check page to see whether your connection uses a Tor exit relay.</p></div><span class="tool-tag">On demand</span></div><div class="terminal-output"><span class="result-light" aria-hidden="true"></span><span><strong>CHECK: Tor Project</strong><small>Provider evaluates your connection.</small></span></div><div class="tool-actions"><a class="tool-button" href="https://check.torproject.org/" target="_blank" rel="noopener noreferrer">Check connection ↗</a></div><p class="privacy-note">The Tor Project receives your connection IP; Flaxware does not receive or store the result.</p></article>
@@ -217,8 +54,9 @@
         <article class="tool-card"><div class="tool-top"><div><h3>WHOIS lookup</h3><p>Search public domain registration details through who.is.</p></div><span class="tool-tag">Domain query</span></div><form class="lookup-form" id="whoisForm"><label class="sr-only" for="whoisDomain">Domain name for WHOIS lookup</label><input id="whoisDomain" name="domain" type="text" placeholder="example.com" autocomplete="url" required><button class="tool-button" type="submit">Look up ↗</button></form><p class="privacy-note">Your query is sent to who.is. Registration data can be redacted or unavailable.</p></article>
         <article class="tool-card"><div class="tool-top"><div><h3>Email exposure checks</h3><p>Check an email address directly with breach-notification providers.</p></div><span class="tool-tag">Provider-hosted</span></div><div class="terminal-output"><span class="result-light" aria-hidden="true"></span><span><strong>MODE: provider check</strong><small>Enter an email only on the provider's site.</small></span></div><div class="tool-actions"><a class="tool-button" href="https://haveibeenpwned.com/" target="_blank" rel="noopener noreferrer">Have I Been Pwned ↗</a><a class="tool-button" href="https://nordvpn.com/data-leak-checker/" target="_blank" rel="noopener noreferrer">NordVPN checker ↗</a></div><p class="privacy-note">This page never asks for or transmits your email. Review provider privacy terms; a clear result is not a guarantee of account safety.</p></article>
         <article class="tool-card"><div class="tool-top"><div><h3>Local browser signals</h3><p>Read a few basic values your browser exposes to this page.</p></div><span class="tool-tag">Local only</span></div><div class="local-list" aria-live="polite"><div class="local-row"><span>Language</span><output id="signalLanguage">Not read</output></div><div class="local-row"><span>Time zone</span><output id="signalTimezone">Not read</output></div><div class="local-row"><span>Colour preference</span><output id="signalColor">Not read</output></div></div><div class="tool-actions"><button class="tool-button" id="readSignals" type="button">Read local signals</button></div><p class="privacy-note">Values are read in this browser only when requested. This page does not upload or save them.</p></article>
-        <article class="tool-card map-primary"><div class="tool-top"><div><h3>Kaspersky Cyberthreat Live Map</h3><p>Interactive global threat visualization. It is not a local device scan or an indication your device is under attack.</p></div><span class="tool-tag">PRIMARY · LIVE</span></div><button class="planet-button" type="button" data-map="kaspersky" aria-controls="kasperskyMap" aria-expanded="false"><span class="planet" aria-hidden="true">🌐</span><span>PRESS TO LOAD KASPERSKY MAP<br><small>External map loads here only after activation</small></span></button><iframe class="map-frame" id="kasperskyMap" title="Kaspersky cyberthreat live map" loading="lazy" referrerpolicy="no-referrer" allow="fullscreen" hidden></iframe><p class="privacy-note">The map is loaded from Kaspersky only after you press the planet. Kaspersky may receive connection data. <a href="https://cybermap.kaspersky.com/" target="_blank" rel="noopener noreferrer">Open the source directly ↗</a></p></article>
-        <article class="tool-card"><div class="tool-top"><div><h3>Bitdefender Cyberthreat Map</h3><p>Optional alternate global threat activity visualization from Bitdefender.</p></div><span class="tool-tag">ALTERNATE · LIVE</span></div><button class="planet-button" type="button" data-map="bitdefender" aria-controls="bitdefenderMap" aria-expanded="false"><span class="planet" aria-hidden="true">🪐</span><span>PRESS TO LOAD BITDEFENDER MAP<br><small>External map loads here only after activation</small></span></button><iframe class="map-frame" id="bitdefenderMap" title="Bitdefender live cyber threat map" loading="lazy" referrerpolicy="no-referrer" allow="fullscreen" hidden></iframe><p class="privacy-note">The map is not requested until activated. Bitdefender may receive connection data. <a href="https://threatmap.bitdefender.com/" target="_blank" rel="noopener noreferrer">Open the source directly ↗</a></p></article>
+        <article class="tool-card"><div class="tool-top"><div><h3>IP logging awareness</h3><p>IPLogger is a link-tracking service, not a privacy or security check. Links created with it can log visitors' IP addresses and related connection details.</p></div><span class="tool-tag">Tracking warning</span></div><div class="terminal-output"><span class="result-light" aria-hidden="true"></span><span><strong>NOTICE: visitor tracking</strong><small>Do not open or share tracking links unexpectedly.</small></span></div><p class="privacy-note">I have not added a direct link to the logger as a privacy tool because it can collect visitor data. Use the DNS and IP diagnostic links above for transparent, consent-based checks.</p></article>
+        <article class="tool-card map-primary"><div class="tool-top"><div><h3>Bitdefender Cyberthreat Map</h3><p>Primary live global threat visualization. It is not a local device scan or proof your device is under attack.</p></div><span class="tool-tag">PRIMARY · LIVE</span></div><button class="eye-button" type="button" data-map="bitdefender" aria-controls="bitdefenderMap" aria-expanded="false"><svg class="eye-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 24s7-13 20-13 20 13 20 13-7 13-20 13S4 24 4 24Z" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="2.5" fill="currentColor"/></svg><span>PRESS TO VIEW BITDEFENDER MAP<br><small>Map loads here only after activation</small></span></button><iframe class="map-frame" id="bitdefenderMap" title="Bitdefender live cyber threat map" loading="lazy" referrerpolicy="no-referrer" allow="fullscreen" hidden></iframe><p class="privacy-note">The map is loaded only after activation. Bitdefender may receive connection data. <a href="https://threatmap.bitdefender.com/" target="_blank" rel="noopener noreferrer">Open map directly ↗</a></p></article>
+        <article class="tool-card"><div class="tool-top"><div><h3>Kaspersky Cyberthreat Live Map</h3><p>Alternate global threat visualization from Kaspersky; not a local scan.</p></div><span class="tool-tag">ALTERNATE · LIVE</span></div><button class="eye-button" type="button" data-map="kaspersky" aria-controls="kasperskyMap" aria-expanded="false"><svg class="eye-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 24s7-13 20-13 20 13 20 13-7 13-20 13S4 24 4 24Z" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="2.5" fill="currentColor"/></svg><span>PRESS TO VIEW KASPERSKY MAP<br><small>Map loads here only after activation</small></span></button><iframe class="map-frame" id="kasperskyMap" title="Kaspersky cyberthreat live map" loading="lazy" referrerpolicy="no-referrer" allow="fullscreen" hidden></iframe><p class="privacy-note">The map loads only after activation. Kaspersky may receive connection data. <a href="https://cybermap.kaspersky.com/" target="_blank" rel="noopener noreferrer">Open map directly ↗</a></p></article>
       </div>
     </div></section>
     <section class="manifesto" id="about"><div class="container manifesto-box"><div><p class="section-kicker">About Flaxware</p><h2>Make the useful thing.<br><span>Make it thoughtfully.</span></h2></div><div class="manifesto-copy"><p>Flaxware is a small technology organization turning ambitious ideas into secure, simple, elegant, and useful products.</p><p>From open-source tools to creative experiments, each project is an opportunity to learn, build with care, and make technology feel a little more human.</p><a class="button button-secondary" href="mailto:superflax.step808@passfwd.com">Start a conversation ↗</a></div></div></section>
@@ -245,8 +83,8 @@
       document.querySelectorAll("[data-map]").forEach((button) => {
         button.addEventListener("click", () => {
           const provider = button.dataset.map;
-          const frame = document.getElementById(provider === "kaspersky" ? "kasperskyMap" : "bitdefenderMap");
-          const mapUrl = provider === "kaspersky" ? "https://cybermap.kaspersky.com/" : "https://threatmap.bitdefender.com/";
+          const frame = document.getElementById(provider === "bitdefender" ? "bitdefenderMap" : "kasperskyMap");
+          const mapUrl = provider === "bitdefender" ? "https://threatmap.bitdefender.com/" : "https://cybermap.kaspersky.com/";
           if (!frame.src) frame.src = mapUrl;
           frame.hidden = false;
           button.setAttribute("aria-expanded", "true");
