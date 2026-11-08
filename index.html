@@ -93,7 +93,7 @@
     .project-card a { display: inline-flex; gap: 8px; margin-top: auto; padding-top: 22px; color: var(--green); text-decoration: none; font-weight: 700; font-size: .88rem; }
     .project-card a:hover { color: var(--violet-light); }
     .privacy-section { padding-top: 14px; }
-    .privacy-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 18px; }
+    .privacy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
     .tool-card { padding: clamp(22px, 4vw, 34px); border: 1px solid var(--line); border-radius: 20px; background: var(--surface); }
     .tool-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 20px; }
     .tool-card h3 { margin: 0 0 7px; font-size: 1.3rem; letter-spacing: -.03em; }
@@ -103,8 +103,12 @@
     .result-light { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 50%; background: var(--violet); }
     .tor-result strong { display: block; font-size: .92rem; } .tor-result small { color: var(--muted); font-size: .78rem; }
     .tool-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    .tool-button { display: inline-flex; align-items: center; min-height: 44px; padding: 9px 16px; border: 1px solid rgba(183,255,0,.55); border-radius: 11px; background: var(--green); color: var(--green-ink); font-weight: 800; text-decoration: none; cursor: pointer; }
+    .tool-button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 16px; border: 1px solid rgba(183,255,0,.55); border-radius: 11px; background: var(--green); color: var(--green-ink); font-weight: 800; text-decoration: none; cursor: pointer; }
     .tool-button:hover { background: #d0ff64; }
+    .lookup-form { display: flex; gap: 8px; margin: 18px 0 0; }
+    .lookup-form input { flex: 1; min-width: 0; min-height: 44px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 11px; background: #120e1c; color: var(--text); }
+    .lookup-form input::placeholder { color: var(--quiet); }
+    .lookup-form .tool-button { flex: 0 0 auto; }
     .privacy-note { margin-top: 15px !important; color: var(--quiet) !important; font-size: .76rem !important; }
     .local-list { display: grid; margin: 16px 0 18px; border-top: 1px solid var(--line); }
     .local-row { display: flex; justify-content: space-between; gap: 20px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: .84rem; }
@@ -147,6 +151,8 @@
       .project-card, .project-card:last-child { grid-column: auto; min-height: 250px; }
       .privacy-section { padding-top: 0; } .tool-top { display: block; }
       .tool-tag { display: inline-block; margin-top: 13px; }
+      .lookup-form { flex-wrap: wrap; }
+      .lookup-form input { flex-basis: 100%; }
       .footer-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 22px; gap: 12px; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
@@ -197,6 +203,24 @@
           <div class="tool-actions"><a class="tool-button" href="https://check.torproject.org/">Check connection <span aria-hidden="true">↗</span></a></div>
           <p class="privacy-note">This button opens check.torproject.org. That service receives your connection IP; Flaxware does not receive or store the result.</p>
         </article>
+        <article class="tool-card"><div class="tool-top"><div><h3>DNS lookup</h3><p>Open Kodachi's DNS tool to inspect DNS settings and resolver details.</p></div><span class="tool-tag">Kodachi tool</span></div>
+          <div class="tor-result" role="note"><span class="result-light" aria-hidden="true"></span><span><strong>DNS diagnostics</strong><small>Lookup runs on the Kodachi tools website.</small></span></div>
+          <div class="tool-actions"><a class="tool-button" href="https://kodachi.cloud/tools/dns.html" target="_blank" rel="noopener noreferrer">Open DNS tool <span aria-hidden="true">↗</span></a></div>
+          <p class="privacy-note">This opens the external Kodachi DNS tool in a new tab.</p>
+        </article>
+        <article class="tool-card"><div class="tool-top"><div><h3>IP lookup</h3><p>Open Kodachi's IP tool to view public IP and related connection information.</p></div><span class="tool-tag">Kodachi tool</span></div>
+          <div class="tor-result" role="note"><span class="result-light" aria-hidden="true"></span><span><strong>IP diagnostics</strong><small>Lookup runs on the Kodachi tools website.</small></span></div>
+          <div class="tool-actions"><a class="tool-button" href="https://kodachi.cloud/tools/ip.html" target="_blank" rel="noopener noreferrer">Open IP tool <span aria-hidden="true">↗</span></a></div>
+          <p class="privacy-note">This opens the external Kodachi IP tool in a new tab. The service may see your IP address.</p>
+        </article>
+        <article class="tool-card"><div class="tool-top"><div><h3>WHOIS lookup</h3><p>Look up public domain registration information with who.is.</p></div><span class="tool-tag">External lookup</span></div>
+          <form class="lookup-form" id="whoisForm">
+            <label class="sr-only" for="whoisDomain">Domain name for WHOIS lookup</label>
+            <input id="whoisDomain" name="domain" type="text" placeholder="example.com" autocomplete="url" required>
+            <button class="tool-button" type="submit">Look up WHOIS <span aria-hidden="true">↗</span></button>
+          </form>
+          <p class="privacy-note">Your domain query opens who.is in a new tab; registration data may be redacted or unavailable.</p>
+        </article>
         <article class="tool-card"><div class="tool-top"><div><h3>Local browser signals</h3><p>See a few basic values your browser makes available to this page.</p></div><span class="tool-tag">Stays here</span></div>
           <div class="local-list" aria-live="polite"><div class="local-row"><span>Language</span><output id="signalLanguage">Not read</output></div><div class="local-row"><span>Time zone</span><output id="signalTimezone">Not read</output></div><div class="local-row"><span>Colour preference</span><output id="signalColor">Not read</output></div></div>
           <div class="tool-actions"><button class="tool-button" id="readSignals" type="button">Read local signals</button></div>
@@ -217,6 +241,18 @@
       engine.addEventListener("change", () => { try { localStorage.setItem("flaxgo-engine", engine.value); } catch (_) { /* Search still works for this visit. */ } });
       form.addEventListener("submit", (event) => { event.preventDefault(); const term = query.value.trim(); if (!term) { query.focus(); return; } window.location.assign(engines[engine.value] + encodeURIComponent(term)); });
       document.addEventListener("keydown", (event) => { const target = event.target; const typing = target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)); if (event.key === "/" && !typing && !event.altKey && !event.ctrlKey && !event.metaKey) { event.preventDefault(); query.focus(); } });
+      document.getElementById("whoisForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const domain = document.getElementById("whoisDomain").value.trim().replace(/^https?:\/\//i, "").split(/[/?#]/)[0];
+        if (!domain || !/^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/i.test(domain)) {
+          document.getElementById("whoisDomain").setCustomValidity("Enter a valid domain name, such as example.com.");
+          document.getElementById("whoisDomain").reportValidity();
+          return;
+        }
+        document.getElementById("whoisDomain").setCustomValidity("");
+        window.open("https://who.is/whois/" + encodeURIComponent(domain), "_blank", "noopener,noreferrer");
+      });
+      document.getElementById("whoisDomain").addEventListener("input", (event) => event.currentTarget.setCustomValidity(""));
       document.getElementById("readSignals").addEventListener("click", () => {
         const language = navigator.language || "Not available";
         let timezone = "Not available";
