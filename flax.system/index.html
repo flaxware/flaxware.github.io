@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080610">
+  <meta name="description" content="FLAX SYSTEM — a security-first operating system concept from Flaxware.">
+  <meta property="og:title" content="FLAX SYSTEM — Security-first computing">
+  <meta property="og:description" content="A copy of the Flaxware homepage, re-skinned for FLAX SYSTEM.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flaxware.github.io/flax.system/">
+  <link rel="icon" href="../assets/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../assets/logo.png">
+  <link rel="canonical" href="https://flaxware.github.io/flax.system/">
+  <title>FLAX SYSTEM</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080610;--panel:rgba(19,12,35,.78);--panel2:rgba(43,19,74,.56);--text:#fbf8ff;--muted:#ccbde0;--quiet:#a28db9;--line:rgba(178,106,255,.34);--green:#39ff14;--green2:#77ff7a;--purple:#c84dff;--focus:#ffd166;--content:1160px;--mono:"DM Mono",ui-monospace,"SFMono-Regular",Consolas,monospace}
+    *,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px;-webkit-text-size-adjust:100%}body{margin:0;min-width:320px;overflow-x:hidden;color:var(--text);background:radial-gradient(ellipse at 50% 25%,rgba(91,40,135,.25),transparent 28rem),radial-gradient(ellipse at 72% 15%,rgba(57,255,20,.06),transparent 24rem),var(--bg);font:16px/1.6 "Space Grotesk",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button,input,select{font:inherit}::selection{color:#071504;background:var(--green)}:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+    .container{width:min(var(--content),calc(100% - 48px));margin-inline:auto}.skip-link{position:fixed;z-index:100;top:12px;left:12px;padding:10px 14px;border-radius:8px;background:var(--green);color:#071504;transform:translateY(-160%);transition:transform .18s ease}.skip-link:focus{transform:translateY(0)}
+    .site-header{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(8,6,16,.88);backdrop-filter:blur(20px) saturate(170%);box-shadow:0 6px 32px rgba(0,0,0,.4),0 0 28px rgba(124,48,180,.08)}
+    .navbar{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:74px}.brand{display:inline-flex;align-items:center;gap:10px;color:var(--text);font-size:1.16rem;font-weight:700;letter-spacing:-.04em}.brand img{width:34px;height:34px;object-fit:contain}.brand-name span{color:var(--green);text-shadow:0 0 14px rgba(57,255,20,.36)}.nav-tools{display:flex;align-items:center;gap:18px}.nav-links{display:flex;align-items:center;gap:18px;color:var(--muted);font-size:.84rem;letter-spacing:.04em;text-transform:uppercase}.nav-links a{opacity:.9}.nav-links a:hover{color:var(--text)}.nav-search{display:flex;align-items:center;gap:8px;min-width:min(500px,52vw);padding:6px 7px 6px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(13,8,23,.6);color:var(--muted)}.nav-search input{flex:1;min-width:0;border:0;background:transparent;color:var(--text);padding:9px 0 9px 4px;outline:none}.nav-search input::placeholder{color:var(--quiet)}.nav-search select{width:108px;padding:8px 10px;border:1px solid rgba(178,106,255,.45);border-radius:8px;background:#160e22;color:var(--muted)}.nav-search button{padding:8px 12px;border:1px solid rgba(57,255,20,.56);border-radius:8px;background:rgba(57,255,20,.12);color:var(--green);font-weight:700;cursor:pointer}.login-button{padding:8px 12px;border:1px solid rgba(178,106,255,.45);border-radius:8px;background:rgba(178,106,255,.06);color:var(--muted);font-size:.84rem}.hero{position:relative;overflow:hidden;padding:clamp(54px,8vw,100px) 0 50px}.hero::after{content:"";position:absolute;inset:auto -110px 18% auto;width:380px;height:380px;border:1px solid rgba(178,106,255,.28);border-radius:999px;filter:blur(2px)}.hero-content{position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:7px 10px;border:1px solid rgba(178,106,255,.4);border-radius:999px;background:rgba(178,106,255,.04);font:500 .68rem/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--green2)}.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 16px rgba(57,255,20,.6)}h1{margin:0;color:var(--text);font-size:clamp(3.1rem,8vw,7rem);line-height:.92;letter-spacing:-.08em}.h1-mark{display:block}.h1-mark span{color:var(--green);text-shadow:0 0 20px rgba(57,255,20,.2)}.hero-sub{max-width:760px;margin-top:22px;color:var(--muted);font-size:clamp(1.02rem,2vw,1.28rem)}.hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:26px}.primary-button,.secondary-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:10px;font-weight:700;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}.primary-button{background:var(--green);color:#071504;box-shadow:0 0 28px rgba(57,255,20,.16)}.primary-button:hover{transform:translateY(-1px)}.secondary-button{border:1px solid rgba(178,106,255,.42);background:rgba(178,106,255,.04);color:var(--text)}
+    .signal-strip{border-block:1px solid var(--line);background:rgba(26,12,44,.44);backdrop-filter:blur(10px)}.signal-inner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:18px 0}.signal{display:flex;align-items:center;gap:12px;padding:10px 0;color:var(--muted)}.signal-icon{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:rgba(57,255,20,.12);color:var(--green);font-size:1rem}.signal strong{display:block;color:var(--text);font-size:.9rem}.signal span{font-size:.76rem;color:var(--muted)}
+    .section{padding:62px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:20px}.section-kicker{margin:0 0 8px;color:var(--green2);font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}.section-title{margin:0;color:var(--text);font-size:clamp(2rem,4vw,3.2rem);line-height:1.06;letter-spacing:-.06em}.section-title span{color:var(--green)}
+    .project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.project-card{min-width:0;padding:24px;border:1px solid rgba(178,106,255,.46);border-radius:18px;background:linear-gradient(180deg,rgba(22,14,34,.76),rgba(13,9,24,.78));box-shadow:inset 0 1px 0 rgba(255,255,255,.02)}.project-card.featured{background:linear-gradient(180deg,rgba(30,17,48,.92),rgba(13,9,24,.8));border-color:rgba(57,255,20,.42)}.project-icon{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;background:rgba(57,255,20,.12);color:var(--green);font-size:1.7rem}.project-number{margin:18px 0 8px;color:var(--green2);font:500 .7rem/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}.project-card h3{margin:0 0 8px;font-size:clamp(1.55rem,3vw,2.4rem);letter-spacing:-.06em}.project-card p{margin:0;color:var(--muted)}
+    .privacy-section{padding-top:12px}.privacy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tool-card{min-width:0;padding:22px;border:1px solid rgba(178,106,255,.46);border-radius:16px;background:rgba(15,10,25,.78)}.tool-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.tool-card h3{margin:0 0 8px;font-size:1.18rem;letter-spacing:-.04em}.tool-card p{margin:0;color:var(--muted)}.tool-tag{display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;border:1px solid rgba(57,255,20,.45);border-radius:999px;background:rgba(57,255,20,.08);color:var(--green);font:500 .64rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}.map-primary{background:linear-gradient(180deg,rgba(12,13,20,.82),rgba(24,12,34,.82))}
+    .manifesto{padding:0 0 64px}.manifesto-box{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;padding:clamp(22px,5vw,42px);border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(21,13,35,.72),rgba(12,8,21,.8))}.manifesto-box h2{margin:0;color:var(--text);font-size:clamp(2.2rem,4vw,4rem);line-height:1;letter-spacing:-.08em}.manifesto-box h2 span{color:var(--green)}.manifesto-box p{margin:0;color:var(--muted);font-size:1.02rem}.manifesto-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.manifesto-meta span{padding:8px 10px;border:1px solid rgba(178,106,255,.46);border-radius:999px;background:rgba(178,106,255,.05);color:var(--muted);font:500 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+    .site-footer{padding:26px 0 46px;border-top:1px solid var(--line);background:rgba(12,7,18,.72)}.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--muted);font-size:.88rem}.footer-links{display:flex;flex-wrap:wrap;gap:14px}.footer-links a{color:var(--muted)}.footer-links a:hover{color:var(--text)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media (max-width:1050px){.navbar{flex-wrap:wrap;padding-block:9px}.nav-links{display:none}.nav-tools{width:100%;justify-content:space-between}.nav-search{min-width:0;flex:1;max-width:520px}}@media (max-width:800px){.container{width:min(var(--content),calc(100% - 36px))}.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.privacy-grid,.manifesto-box{grid-template-columns:1fr}.signal-inner{grid-template-columns:1fr}}@media (max-width:560px){html{scroll-padding-top:132px}.container{width:calc(100% - 28px)}.navbar{min-height:auto;align-items:stretch;flex-direction:column;gap:8px;padding:9px 0}.brand{justify-content:center}.nav-tools{flex-direction:column;align-items:stretch}.nav-search{width:100%;max-width:none}.nav-search select{width:84px}.hero{padding-top:42px}.project-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;align-items:flex-start}}@media (max-width:360px){.nav-search{gap:6px}.nav-search select{width:72px}.nav-search button{padding-inline:9px}.login-button{padding-inline:8px}}@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><nav class="navbar container" aria-label="Main navigation">
+    <a class="brand" href="https://flaxware.github.io/" aria-label="Flaxware home"><img src="../assets/logo.svg" alt=""><span class="brand-name">flaxware<span>.</span></span></a>
+    <div class="nav-tools">
+      <div class="nav-links"><a href="#projects">Projects</a><a href="#privacy">Privacy</a><a href="#contact">Contact</a></div>
+      <form class="nav-search" id="searchForm" role="search"><label class="sr-only" for="query">Search the web</label><input id="query" name="q" type="search" placeholder="Search the web…" autocomplete="off"><label class="sr-only" for="engine">Search engine</label><select id="engine" aria-label="Search provider"><option value="duckduckgo">DuckDuckGo</option><option value="brave">Brave</option><option value="startpage">Startpage</option><option value="flaxgo">FlaxGo</option></select><button type="submit">Search</button></form>
+      <a class="login-button" href="https://proton.me/login" target="_blank" rel="noopener noreferrer">Login ↗</a>
+    </div>
+  </nav></header>
+  <main id="main">
+    <section class="hero" id="home"><div class="container hero-content">
+      <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> SYS://FLAXWARE · INDEPENDENT SOFTWARE STUDIO</p>
+      <h1><span class="h1-mark">FLAX <span>SYSTEM</span></span></h1>
+      <p class="hero-sub">A practical, security-minded operating system concept built around privacy, resilience, and the idea that the system should be transparent, minimal, and trustworthy.</p>
+      <div class="hero-actions"><a class="primary-button" href="#projects">Explore the stack</a><a class="secondary-button" href="#contact">Build with us</a></div>
+    </div></section>
+    <section class="signal-strip" aria-label="Flaxware principles"><div class="signal-inner container">
+      <div class="signal"><span class="signal-icon" aria-hidden="true">✦</span><div><strong>Minimal</strong><span>less noise, more control</span></div></div>
+      <div class="signal"><span class="signal-icon" aria-hidden="true">▣</span><div><strong>Secure</strong><span>built with a defense mindset</span></div></div>
+      <div class="signal"><span class="signal-icon" aria-hidden="true">⌁</span><div><strong>Open</strong><span>clear interfaces, honest tooling</span></div></div>
+    </div></section>
+    <section class="section" id="projects"><div class="container"><div class="section-head"><div><p class="section-kicker">// Selected work</p><h2 class="section-title">Ideas are <span>ideals.</span></h2></div></div>
+      <div class="project-grid">
+        <article class="project-card featured"><div class="project-icon" aria-hidden="true">⌕</div><p class="project-number">01 / SEARCH</p><h3>FlaxGo</h3><p>A calm, customizable search experience designed around focused results and simpler browsing.</p></article>
+        <article class="project-card"><div class="project-icon" aria-hidden="true">✦</div><p class="project-number">02 / SYSTEM</p><h3>FLAX SYSTEM</h3><p>A complete Unix-like operating system project focused on security, composability, and clear system design.</p></article>
+        <article class="project-card"><div class="project-icon" aria-hidden="true">⌘</div><p class="project-number">03 / TOOLBOX</p><h3>FlaxPlaza</h3><p>Open tools and small web projects designed to help people build, query, and reason with less friction.</p></article>
+      </div>
+    </div></section>
+    <section class="section privacy-section" id="privacy"><div class="container"><div class="section-head"><div><p class="section-kicker">// Privacy &amp; security desk</p><h2 class="section-title">Think in <span>signals.</span></h2></div></div>
+      <div class="privacy-grid">
+        <article class="tool-card"><div class="tool-top"><div><h3>Tor connection check</h3><p>Open the Tor check page to see whether your connection uses a Tor exit relay.</p></div><span class="tool-tag">Network</span></div></article>
+        <article class="tool-card"><div class="tool-top"><div><h3>DNS lookup</h3><p>Open Kodachi's DNS tool for DNS and resolver diagnostics.</p></div><span class="tool-tag">External</span></div></article>
+        <article class="tool-card"><div class="tool-top"><div><h3>IP lookup</h3><p>View public IP and related connection information with Kodachi's IP tool.</p></div><span class="tool-tag">Identity</span></div></article>
+        <article class="tool-card"><div class="tool-top"><div><h3>WHOIS lookup</h3><p>Search public domain registration details through who.is.</p></div><span class="tool-tag">Domain</span></div></article>
+        <article class="tool-card"><div class="tool-top"><div><h3>Email exposure checks</h3><p>Check an email address directly with breach-notification providers.</p></div><span class="tool-tag">Data</span></div></article>
+        <article class="tool-card"><div class="tool-top"><div><h3>Local browser signals</h3><p>Inspect a broad set of browser, device, display, and preference values available to this page.</p></div><span class="tool-tag">Browser</span></div></article>
+        <article class="tool-card"><div class="tool-top"><div><h3>IP logging awareness</h3><p>IPLogger is a link-tracking service, not a privacy or security check. Links created with it can log visitors.</p></div><span class="tool-tag">Risk</span></div></article>
+        <article class="tool-card map-primary"><div class="tool-top"><div><h3>Bitdefender Cyberthreat Map</h3><p>Primary live global threat visualization. It is not a local device scan or proof of compromise.</p></div><span class="tool-tag">Live</span></div></article>
+      </div>
+    </div></section>
+    <section class="manifesto" id="contact"><div class="container manifesto-box"><div><p class="section-kicker">// contact</p><h2>Have an idea? Let's make it <br><span>real ideal.</span></h2></div><div><p>We build software with clear principles: respect privacy, minimize risk, and make systems understandable. If you want to explore a secure product, a better interface, or a more capable digital platform, we would like to hear about it.</p><div class="manifesto-meta"><span>Security-first</span><span>Open systems</span><span>Thoughtful tooling</span></div></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>© 2026 Flaxware · Built with curiosity.</p><div class="footer-links"><a href="https://github.com/flaxware" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://flaxware.github.io/flaxgo" target="_blank" rel="noopener noreferrer">FlaxGo</a><a href="https://flaxware.github.io/flaxgo.onion/" target="_blank" rel="noopener noreferrer">FlaxGo.onion</a></div></div></footer>
+  <script>
+    (() => {
+      const engines = {
+        flaxgo: "https://flaxware.github.io/flaxgo?q=",
+        duckduckgo: "https://duckduckgo.com/?q=",
+        brave: "https://search.brave.com/search?q=",
+        startpage: "https://www.startpage.com/sp/search?query=",
+      };
+      const form = document.getElementById("searchForm");
+      const query = document.getElementById("query");
+      const engine = document.getElementById("engine");
+      try { const saved = localStorage.getItem("flax-system-engine"); if (saved && engines[saved]) engine.value = saved; } catch (_) {}
+      engine.addEventListener("change", () => { try { localStorage.setItem("flax-system-engine", engine.value); } catch (_) {} });
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const term = query.value.trim();
+        if (!term) { query.focus(); return; }
+        const base = engines[engine.value];
+        if (base) window.location.assign(base + encodeURIComponent(term));
+      });
+      document.addEventListener("keydown", (event) => {
+        const target = event.target;
+        const typing = target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName));
+        if (event.key === "/" && !typing && !event.altKey && !event.ctrlKey && !event.metaKey) {
+          event.preventDefault();
+          query.focus();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
